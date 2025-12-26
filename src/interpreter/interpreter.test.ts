@@ -1,4 +1,4 @@
-import { interpreterRec } from './interpreter';
+import { interpreterRec, interpreterIterative } from './interpreter';
 
 describe('Interpreter', () => {
   it.each([
@@ -12,5 +12,6 @@ describe('Interpreter', () => {
     { input: `OP_1 OP_2`, expected: true },
   ])("Should return $expected for input '$input'", ({ input, expected }) => {
     expect(interpreterRec(input)).toBe(expected);
+    expect(interpreterIterative(input)).toBe(expected);
   });
 });
