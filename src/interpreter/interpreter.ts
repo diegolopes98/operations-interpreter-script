@@ -12,11 +12,13 @@ export const interpreterRec = (input: string): boolean => {
   if (operations.length < 1) return false;
 
   if (operations.length === 1) {
-    const lastOp = operations.pop()!;
-    return isNumber(lastOp) ? lastOp > 0 : false;
+    const lastOp = operations[0];
+    return isNumber(lastOp) && lastOp > 0;
   }
 
-  const interprete = (ops: Operation[]): number => {
+  const interprete = (ops: Operation[]): number | null => {
+    if (ops.length === 0) return null;
+
     const op = ops.pop()!;
 
     if (isNumber(op)) {
@@ -25,6 +27,8 @@ export const interpreterRec = (input: string): boolean => {
 
     const el2 = interprete(ops);
     const el1 = interprete(ops);
+
+    if (el1 === null || el2 === null) return null;
 
     if (isComparisonOperation(op)) {
       ops.push(op(el1, el2) ? 1 : 0);
@@ -39,7 +43,7 @@ export const interpreterRec = (input: string): boolean => {
 
   const result = interprete(operations);
 
-  return result > 0;
+  return result !== null && result > 0;
 };
 
 export const interpreterIterative = (input: string): boolean => {
