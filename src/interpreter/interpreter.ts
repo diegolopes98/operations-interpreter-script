@@ -6,7 +6,7 @@ import {
   isNumber,
 } from '../operation';
 
-export const interpreter = (input: string): boolean => {
+export const interpreterRec = (input: string): boolean => {
   const operations = parse(input);
 
   if (operations.length < 1) return false;
